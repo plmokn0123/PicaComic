@@ -912,7 +912,7 @@ class EhNetwork {
   ///获取排行榜
   Future<Res<EhLeaderboard>> getLeaderboard(EhLeaderboardType type) async {
     var res = await getGalleries(
-        "https://e-hentai.org/toplist.php?tl=${type.value}"&p=0,
+        "https://e-hentai.org/toplist.php?tl=${type.value}&p=0",
         leaderboard: true);
     if (res.error) return Res(null, errorMessage: res.errorMessage);
     return Res(EhLeaderboard(type, res.data.galleries, 0));
