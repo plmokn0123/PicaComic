@@ -1,0 +1,29 @@
+name: Flutter Android Build
+
+on:
+  push:
+    branches: [ master, main ] # 监听 master 或 main 分支的推送事件
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # 在 Ubuntu 虚拟机上执行
+
+    steps:
+    - uses: actions/checkout@v4 # 1. 检出代码
+
+    - uses: subosito/flutter-action@v2 # 2. 设置 Flutter 环境
+      with:
+        flutter-version: '3.19.0' # 确保版本与项目兼容，您可以根据需要调整
+
+    - name: Get Dependencies # 3. 安装项目依赖
+      run: flutter pub get
+
+    - name: Build Android Release APK # 4. 执行 APK 打包命令
+      run: flutter build apk --release --split-per-abi
+
+    - name: Upload Artifacts # 5. 上传生成的 APK 文件 (打包产物)
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-apks
+        path: build/app/outputs/flutter-apk/
+        retention-days: 7 # APK 文件将保留 7 天
