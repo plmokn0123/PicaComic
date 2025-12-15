@@ -924,7 +924,7 @@ class EhNetwork {
       return;
     } else {
       var res = await getGalleries(
-          "https://e-hentai.org/toplist.php?tl=${leaderboard.type.value}&p=${leaderboard.loaded + 1}",
+          "https://e-hentai.org/toplist.php?tl=${leaderboard.type.value}&p=${leaderboard.loaded}",
           leaderboard: true);
       if (!res.error) {
         leaderboard.galleries.addAll(res.data.galleries);
